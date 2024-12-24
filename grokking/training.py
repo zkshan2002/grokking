@@ -1,4 +1,4 @@
-from math import ceil
+from math import ceil, log10
 import numpy as np
 import random
 import torch
@@ -93,6 +93,7 @@ def train(model, train_loader, optimizer, scheduler, device, num_steps):
             "training/accuracy": acc,
             "training/loss": loss,
             "step": wandb.run.step,
+            "step_log10": log10(wandb.run.step) if wandb.run.step > 0 else 0,
         }
         wandb.log(metrics)
 
