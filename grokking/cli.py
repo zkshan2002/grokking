@@ -16,6 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--weight_decay", type=float, default=1)
     parser.add_argument("--num_steps", type=int, default=1e5)
     parser.add_argument("--device", type=str, default="cpu")
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     main(args)

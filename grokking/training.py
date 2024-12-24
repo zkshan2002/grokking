@@ -1,4 +1,6 @@
 from math import ceil
+import numpy as np
+import random
 import torch
 from tqdm import tqdm
 import wandb
@@ -20,6 +22,8 @@ def main(args: dict):
     wandb.define_metric("training/loss", step_metric='step')
     wandb.define_metric("validation/accuracy", step_metric='epoch')
     wandb.define_metric("validation/loss", step_metric='epoch')
+
+    set_seed(args.seed)
 
     train_loader, val_loader = get_data(
         config.operation,
@@ -49,6 +53,12 @@ def main(args: dict):
     for epoch in tqdm(range(num_epochs)):
         train(model, train_loader, optimizer, scheduler, device, config.num_steps)
         evaluate(model, val_loader, device, epoch)
+
+def set_seed(seed: int):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 def train(model, train_loader, optimizer, scheduler, device, num_steps):
     # Set model to training mode
@@ -82,7 +92,7 @@ def train(model, train_loader, optimizer, scheduler, device, num_steps):
         metrics = {
             "training/accuracy": acc,
             "training/loss": loss,
-            "step": wandb.run.step
+            "step": wandb.run.step,
         }
         wandb.log(metrics)
 
