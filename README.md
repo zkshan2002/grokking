@@ -1,3 +1,16 @@
+# Readme
+
+This repository is adapted from https://github.com/danielmamay/grokking.
+
+To reproduce figure 1, run:
+
+```bash
+python grokking/cli.py --operation +% --training_fraction 0.5 --prime 97 --num_steps 1000 \
+    --device cuda --seed 42
+```
+
+Below are the original readme.
+
 # Grokking
 
 An implementation of the OpenAI 'Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets' paper in PyTorch.
